@@ -1,8 +1,10 @@
 import streamlit as st
 from langchain.llms import OpenAI
-st.set_page_config(page_title="🦜🔗 DSW Product Finder App")
+# st.set_page_config(page_title="🦜🔍 DSW Product Finder App")
+st.set_page_config(page_title="Bandar")
+
 st.title('🔍 DSW 2023 Product Finder App')
-st.caption("🚀 Product finder application made by Bandamology Team for the Data Science Weekend 2023 Data Hackathon")
+st.write("🚀 Made by Bandamology Team for the Data Science Weekend 2023 Data Challenge")
 
 # openai_api_key = st.sidebar.text_input('OpenAI API Key')
 
@@ -12,15 +14,18 @@ st.caption("🚀 Product finder application made by Bandamology Team for the Dat
   
 def search_product(product_name):
   ## Logic here
-  product_list = ['Roundup', 'Glyphosate', 'Fujiwan']
-  return product_list
+  if product_name != 'keong':
+    product_list = ['Roundup', 'Glyphosate', 'Fujiwan']
+    return product_list
+  else:
+    return None
 
-with st.sidebar.header("About"):
-  st.sidebar.markdown((
-      "[Bandar](https://bandar.streamlit.app) is a Product Finder Application for the submission of the 2023 Data Science Weekend Competition, Senior Professional Category."
+st.sidebar.header("About")
+st.sidebar.markdown((
+      "[Bandar](https://bandar.streamlit.app) is a Product Finder application designed for submission to the Senior Professional Category of the 2023 Data Science Weekend Competition."
   ))
-with st.sidebar.header("Copyright notice"):
-  st.sidebar.markdown("No part of this publication or its text may be made publicly available or, excepting personal use, reproduced, or distributed or translated into other languages without the prior written permission of Berlin Product People GmbH. If you would like permission to reproduce or otherwise publish any part or all of this publication or its text, including translations thereof, write to us at info@berlin-product-people.com addressed “Attention: Permissions Request.”")
+st.sidebar.header("Copyright notice")
+st.sidebar.markdown("No part of this publication or its text may be made publicly available or, excepting personal use, reproduced, or distributed or translated into other languages without the prior written permission of Berlin Product People GmbH. If you would like permission to reproduce or otherwise publish any part or all of this publication or its text, including translations thereof, write to us at info@berlin-product-people.com addressed “Attention: Permissions Request.”")
 
 with st.form('my_form'):
   text = st.text_input("Search product name", value="")
@@ -29,10 +34,13 @@ with st.form('my_form'):
   # Submit button is pressed
   if submitted:
     products = search_product(text)
-    st.caption("Below are the possible product names")
-    for product in products:
-      with st.expander(product):
-        st.write("Product Type :")
+    if products is not None:
+      st.caption("Below are the possible product names")
+      for product in products:
+        with st.expander('Product SKU : ' + product):
+          st.write("Product Type :")
+    else:
+      st.warning('Product name not found, is this the product that you are referring to?')
 
   # # Delete later
   # if not openai_api_key.startswith('sk-'):
