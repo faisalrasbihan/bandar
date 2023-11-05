@@ -1,5 +1,4 @@
 import streamlit as st
-from langchain.llms import OpenAI
 
 with st.sidebar:
     st.write("**Streamlit app created by:**")
