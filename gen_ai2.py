@@ -2,7 +2,7 @@ from openai import OpenAI
 import json
 import os
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "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"
 client = OpenAI()
 
 def openai_search(product_name):

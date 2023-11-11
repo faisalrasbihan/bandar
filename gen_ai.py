@@ -2,9 +2,9 @@ from langchain.schema import HumanMessage
 from langchain.llms import OpenAI
 from langchain.chat_models import ChatOpenAI
 
-OPENAI_API_KEY="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"
+OPENAI_API_KEY="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"
 import os
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "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"
 
 llm = OpenAI(temperature = 0, model_name = 'gpt-4')
 chat_model = ChatOpenAI()
