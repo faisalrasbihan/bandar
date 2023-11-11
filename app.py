@@ -1,5 +1,6 @@
 import streamlit as st
 from langchain.llms import OpenAI
+from gen_ai2 import openai_search
 # st.set_page_config(page_title="🦜🔍 DSW Product Finder App")
 st.set_page_config(page_title="Bandar")
 
@@ -13,7 +14,7 @@ st.write("🚀 Made by Bandamology Team for the Data Science Weekend 2023 Data C
 #   st.info(llm(input_text))
   
 def search_product(product_name):
-  ## Logic here
+  ## Sample Logic here
   if product_name != 'keong':
     product_list = ['Roundup', 'Glyphosate', 'Fujiwan']
     return product_list
@@ -33,7 +34,8 @@ with st.form('my_form'):
   
   # Submit button is pressed
   if submitted:
-    products = search_product(text)
+    # products = search_product(text)
+    products = openai_search(text)
     if products is not None:
       st.caption("Below are the possible product names")
       for product in products:
