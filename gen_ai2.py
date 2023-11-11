@@ -218,4 +218,4 @@ def openai_search(product_name):
   return res
   
 result = openai_search("Phonska")
-print(result.matches)
+print(result['matches'])
