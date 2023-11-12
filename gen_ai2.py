@@ -9,7 +9,7 @@ def openai_search(openai_api_key, product_name):
   os.environ["OPENAI_API_KEY"] = openai_api_key
   client = OpenAI() 
   
-  user_prompt = '''Please give ALL possible matches for the product "{fname}" from this product list which contains Product SKU Name:
+  user_prompt = '''Please give ALL possible matches for the product "{fname}" from this Product SKU list:
 
   Urea Petro
   Urea PIM
@@ -199,13 +199,13 @@ def openai_search(openai_api_key, product_name):
   MestiKisrit
   Borate Evermax
 
-  ONLY return product SKU that is available in product list.
+  ONLY return Product SKU Name that is available in Product SKU list.
 
   return FULL NAME of product SKU IF and only IF you found possible matches.
 
   ONLY return a comma-separated list, and nothing more.
 
-  RETURN "NOT FOUND" if you don't find any matches'''.format(fname = product_name)
+  RETURN "NOT FOUND" if you don't find any match'''.format(fname = product_name)
   
   completion = client.chat.completions.create(
     model="gpt-3.5-turbo",

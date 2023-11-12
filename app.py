@@ -4,7 +4,7 @@ from gen_ai2 import openai_search
 st.set_page_config(page_title="Bandar")
 
 st.title('🔍 DSW 2023 Product Finder App')
-st.write("🚀 Made by Bandamology Team for the Data Science Weekend 2023 Data Challenge")
+st.write("Made by Bandamology Team for the Data Science Weekend 2023 Data Challenge 🚀")
   
 def search_product(product_name):
   ## Sample Logic here
@@ -29,17 +29,23 @@ with st.form('my_form'):
   
   # Submit button is pressed
   if submitted:
-    # products = search_product(text)
+    # Check if OpenAI key is filled
     if not openai_api_key:
         st.info("Please add your OpenAI API key to continue.")
         st.stop()
+    # Search OpenAI for free-text input
     search_result = openai_search(openai_api_key, text)
     print(search_result['matches'])
+    # Split output to string
     products = search_result['matches'].split(",")
     if products is not None:
       st.caption("Below are the possible product names")
       for product in products:
         with st.expander(product):
           st.write("Product Type :")
+      
+      st.info('Didnt find the product you are looking for? Suggest a new Product SKU Name')
+      title = st.text_input('New Product SKU')
+      suggestted = st.form_submit_button('Suggest New Product')
     else:
-      st.warning('Product name not found, is this the product that you are referring to?')
+      st.warning('Product name not found, Please retype your product name')
