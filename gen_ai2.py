@@ -221,5 +221,5 @@ def openai_search(openai_api_key, product_name):
   return res
   
 # DELETE IN PRODUCTION
-result = openai_search("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","Mutiara")
+result = openai_search("Mutiara")
 print(result['matches'].split(","))
