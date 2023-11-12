@@ -2,10 +2,12 @@ from openai import OpenAI
 import json
 import os
 
-os.environ["OPENAI_API_KEY"] = "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"
-client = OpenAI()
 
-def openai_search(product_name):
+
+def openai_search(openai_api_key, product_name):
+  
+  os.environ["OPENAI_API_KEY"] = openai_api_key
+  client = OpenAI() 
   
   user_prompt = '''Please give ALL possible matches for the product "{fname}" from this product list which contains Product SKU Name:
 
@@ -207,15 +209,16 @@ def openai_search(product_name):
   
   completion = client.chat.completions.create(
     model="gpt-3.5-turbo",
+    temperature=0,
     messages=[
       {"role": "system", "content": "You are an assistent that generate JSON and only JSON without additional description or context, I will give you a product name and you need to find possible matches from the product list that I gave you in JSON Format. Do not include any explanations, only provide a  RFC8259 compliant JSON response without newline following this format without deviation. "},
       {"role": "user", "content": user_prompt}
     ]
   )
-  print(completion.choices[0].message.content)
+  # print(completion.choices[0].message.content)
   res = json.loads(completion.choices[0].message.content)
 
   return res
   
-result = openai_search("Phonska")
-print(result['matches'])
+# result = openai_search("Phonska")
+# print(result['matches'])

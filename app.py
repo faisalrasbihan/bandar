@@ -21,6 +21,8 @@ def search_product(product_name):
   else:
     return None
 
+openai_api_key = st.sidebar.text_input('OpenAI API Key')
+st.sidebar.markdown("Kami menggunakan chatgpt-3.5-turbo sebagai salah satu model untuk menemukan match pada Product SKU. Open AI API Key dapat dilihat pada slide materi tim Bandarmology pada link berikut : [Get an OpenAI API key](https://docs.google.com/presentation/d/1nP1aToowg5b3datkuYCHMgaGIjWT-fvCfMsyRW2uMv8/edit?usp=sharing)")
 st.sidebar.header("About")
 st.sidebar.markdown((
       "[Bandar](https://bandar.streamlit.app) is a Product Finder application designed for submission to the Senior Professional Category of the 2023 Data Science Weekend Competition."
@@ -35,7 +37,12 @@ with st.form('my_form'):
   # Submit button is pressed
   if submitted:
     # products = search_product(text)
-    products = openai_search(text)
+    if not openai_api_key:
+        st.info("Please add your OpenAI API key to continue.")
+        st.stop()
+    search_result = openai_search(openai_api_key, text)
+    print(search_result['matches'])
+    products = search_result['matches']
     if products is not None:
       st.caption("Below are the possible product names")
       for product in products:
