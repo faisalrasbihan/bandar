@@ -41,7 +41,7 @@ with st.form('my_form'):
         st.stop()
     search_result = openai_search(openai_api_key, text)
     print(search_result['matches'])
-    products = search_result['matches']
+    products = search_result['matches'].split(",")
     if products is not None:
       st.caption("Below are the possible product names")
       for product in products:

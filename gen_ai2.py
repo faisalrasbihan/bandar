@@ -203,7 +203,7 @@ def openai_search(openai_api_key, product_name):
 
   return FULL NAME of product SKU IF and only IF you found possible matches.
 
-  ONLY return a comma-separated list in JSON object, and nothing more.
+  ONLY return a comma-separated list, and nothing more.
 
   RETURN "NOT FOUND" if you don't find any matches'''.format(fname = product_name)
   
@@ -221,5 +221,5 @@ def openai_search(openai_api_key, product_name):
   return res
   
 # DELETE IN PRODUCTION
-# result = openai_search("Yara")
-# print(result['matches'][0])
+result = openai_search("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","Mutiara")
+print(result['matches'].split(","))
