@@ -17,7 +17,8 @@ def search_product(product_name):
     return None
 
 openai_api_key = st.sidebar.text_input('OpenAI API Key')
-st.sidebar.markdown("Open AI API Key dapat dilihat pada slide materi tim Bandarmology pada link berikut : [Get an OpenAI API key](https://docs.google.com/presentation/d/1nP1aToowg5b3datkuYCHMgaGIjWT-fvCfMsyRW2uMv8/edit?usp=sharing)")
+st.sidebar.markdown("[Get an OpenAI API key](https://platform.openai.com/account/api-keys)")
+st.sidebar.markdown("[View the source code](https://github.com/streamlit/llm-examples/blob/main/Chatbot.py)")
 st.sidebar.header("About")
 st.sidebar.markdown((
       "[Bandar](https://bandar.streamlit.app) is a Product Finder application designed for submission to the Senior Professional Category of the 2023 Data Science Weekend Competition."
@@ -32,15 +33,18 @@ with st.form('my_form'):
   # Submit button is pressed
   if submitted:
     # Check if OpenAI key is filled
-    if not openai_api_key:
-        st.info("Please add your OpenAI API key to continue.")
-        st.stop()
+
     classic_algo_result = ca.classic_algo(text)
     if not classic_algo_result:
-      # Search OpenAI for free-text input
-      search_result = openai_search(openai_api_key, text)
-      print(search_result)
-      products = search_result.split(",")
+      if not openai_api_key:
+        # Open AI key is not found, user cant search using Gen AI method
+        st.warning("Product not found, please add your OpenAI API key to continue searching using Generative AI.")
+        st.stop()
+      else:
+        # Search OpenAI for free-text input
+        search_result = openai_search(openai_api_key, text)
+        print(search_result)
+        products = search_result.split(",")
     else:
       products = classic_algo_result
     # Split output to string
@@ -48,8 +52,8 @@ with st.form('my_form'):
       st.caption("Below are the possible product names")
       for product in products:
         with st.expander(product):
-          st.write("Product Type :")
-      
+          st.write("Product Type : Fertilizer")
+      st.divider()
       st.info('Didnt find the product you are looking for? Suggest a new Product SKU Name')
       title = st.text_input('New Product SKU')
       suggestted = st.form_submit_button('Suggest New Product')
