@@ -45,7 +45,7 @@ with st.form('my_form'):
     if products is not None:
       st.caption("Below are the possible product names")
       for product in products:
-        with st.expander('Product SKU : ' + product):
+        with st.expander(product):
           st.write("Product Type :")
     else:
       st.warning('Product name not found, is this the product that you are referring to?')

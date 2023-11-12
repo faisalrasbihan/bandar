@@ -203,7 +203,7 @@ def openai_search(openai_api_key, product_name):
 
   return FULL NAME of product SKU IF and only IF you found possible matches.
 
-  ONLY return a comma-separated list, and nothing more.
+  ONLY return a comma-separated list in JSON object, and nothing more.
 
   RETURN "NOT FOUND" if you don't find any matches'''.format(fname = product_name)
   
@@ -211,7 +211,7 @@ def openai_search(openai_api_key, product_name):
     model="gpt-3.5-turbo",
     temperature=0,
     messages=[
-      {"role": "system", "content": "You are an assistent that generate JSON and only JSON without additional description or context, I will give you a product name and you need to find possible matches from the product list that I gave you in JSON Format. Do not include any explanations, only provide a  RFC8259 compliant JSON response without newline following this format without deviation. "},
+      {"role": "system", "content": "You are an assistent that generate JSON and only JSON without additional description or context, I will give you a product name and you need to find possible matches from the product list that I gave you in JSON Format. Do not include any explanations, only provide a RFC8259 compliant JSON response without newline following this format without deviation. "},
       {"role": "user", "content": user_prompt}
     ]
   )
@@ -220,5 +220,6 @@ def openai_search(openai_api_key, product_name):
 
   return res
   
-# result = openai_search("Phonska")
-# print(result['matches'])
+# DELETE IN PRODUCTION
+# result = openai_search("Yara")
+# print(result['matches'][0])
