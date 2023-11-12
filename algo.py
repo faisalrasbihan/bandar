@@ -1,5 +1,5 @@
 import pandas as pd
-from fuzzywuzzy import fuzz
+import fuzz
 
 def clean_column_names(df):
     cleaned_df = df.rename(columns=lambda x: x.strip().lower().replace(" ", "_"))
@@ -20,7 +20,7 @@ def matching_tokens(product_prompt_tokens, product_sku_tokens):
     return matching_tokens
 
 def product_catalog_processing(path):
-    product_catalog_df = clean_column_names(pd.read_excel(path))
+    product_catalog_df = clean_column_names(pd.read_csv(path))
     product_catalog_df['product_sku'] = product_catalog_df['product_sku'].astype(str)
 
     # Replace + with space
@@ -110,7 +110,7 @@ def fuzzy_classic_algorithm(base_df):
 def classic_algo(prompt):
    
     # Product Catalog
-    product_catalog_df, token_corpus = product_catalog_processing('Product Catalog.xlsx')
+    product_catalog_df, token_corpus = product_catalog_processing('Product Catalog.csv')
 
     # Product Prompt
     product_prompt_df = product_prompt_processing(prompt, token_corpus)
@@ -125,9 +125,6 @@ def classic_algo(prompt):
     suggestion = final_result_df[final_result_df.product_prompt == prompt]['suggestion'].iloc[0]
 
     return suggestion
-
-print(classic_algo("ZA"))
-
 
 
 

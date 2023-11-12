@@ -26,15 +26,17 @@ def openai_search(openai_api_key, product_name):
     model="gpt-3.5-turbo",
     temperature=0,
     messages=[
-      {"role": "system", "content": "You are an assistent that generate JSON and only JSON without additional description or context, I will give you a product name and you need to find possible matches from the product list that I gave you in JSON Format. Do not include any explanations, only provide a RFC8259 compliant JSON response without newline following this format without deviation. "},
+      {"role": "system", "content": "You are an assistant that ONLY return a comma-separated list, and nothing more without additional description or context, I will give you a product name and you need to find possible matches from the Product SKU list that I gave you. Do not include any explanations, only provide a comma separated list without newline following this format without deviation. "},
       {"role": "user", "content": user_prompt}
     ]
   )
   # print(completion.choices[0].message.content)
-  res = json.loads(completion.choices[0].message.content)
+  res = completion.choices[0].message.content
 
   return res
   
 # DELETE IN PRODUCTION
-# result = openai_search("Mutiara")
-# print(result['matches'].split(","))
+# result = openai_search("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","Meroke")
+# print(result)
+# print(result.split(","))
+# # print(result['matches'].replace('[', '')).replace(']', '').split(",")
