@@ -1,5 +1,4 @@
 import streamlit as st
-from langchain.llms import OpenAI
 from gen_ai2 import openai_search
 # st.set_page_config(page_title="🦜🔍 DSW Product Finder App")
 st.set_page_config(page_title="Bandar")
