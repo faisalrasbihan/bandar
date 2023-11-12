@@ -1,5 +1,7 @@
 import streamlit as st
 from gen_ai2 import openai_search
+from algo import classic_algo
+
 # st.set_page_config(page_title="🦜🔍 DSW Product Finder App")
 st.set_page_config(page_title="Bandar")
 
@@ -33,11 +35,15 @@ with st.form('my_form'):
     if not openai_api_key:
         st.info("Please add your OpenAI API key to continue.")
         st.stop()
-    # Search OpenAI for free-text input
-    search_result = openai_search(openai_api_key, text)
-    print(search_result['matches'])
+    classic_algo_result = classic_algo(text)
+    if not classic_algo_result:
+      # Search OpenAI for free-text input
+      search_result = openai_search(openai_api_key, text)
+      print(search_result['matches'])
+      products = search_result['matches'].split(",")
+    else:
+      products = classic_algo_result
     # Split output to string
-    products = search_result['matches'].split(",")
     if products is not None:
       st.caption("Below are the possible product names")
       for product in products:

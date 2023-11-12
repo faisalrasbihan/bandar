@@ -3,3 +3,5 @@ pandas
 numpy
 langchain
 openai
+fuzzywuzzy
+openpyxl
