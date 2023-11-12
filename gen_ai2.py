@@ -34,9 +34,3 @@ def openai_search(openai_api_key, product_name):
   res = completion.choices[0].message.content
 
   return res
-  
-# DELETE IN PRODUCTION
-# result = openai_search("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","Meroke")
-# print(result)
-# print(result.split(","))
-# # print(result['matches'].replace('[', '')).replace(']', '').split(",")
